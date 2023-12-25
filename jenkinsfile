@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+
+    environment {
+        GITHUB_APP_CREDENTIALS_ID = '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'
+        GIT_USERNAME = 'aviad48'
+        IMAGE_NAME = aviad539/k8s
+        DOCKER_HUB_TOKEN = credentials('dckr_pat_RkBxziVkXtOaQUebre7-7ea4dkQ')
+        $DOCKER_HUB_USERNAME = aviad539
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    // Checkout the code from the 'development' branch
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/Aviad48/k8s-project.git']]])
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build Docker image 
+                    sh "docker build -t $IMAGE_NAME ."
+                }
+            }
+        }
+
+        stage('Push') {
+            steps {
+                script {
+                    // Log in to Docker Hub using a token
+                    withCredentials([string(credentialsId: 'docker-hub-token-id', variable: 'DOCKER_HUB_TOKEN')]) {
+                        sh "echo $DOCKER_HUB_TOKEN | docker login -u $DOCKER_HUB_USERNAME --password-stdin"
+                    }
+
+                    // Get the current build number
+                    def buildNumber = currentBuild.number.toString()
+
+                    // Push the Docker image with 'latest' and build number tags
+                    sh "docker tag $IMAGE_NAME $IMAGE_NAME:latest"
+                    sh "docker tag $IMAGE_NAME $IMAGE_NAME:$buildNumber"
+                    
+                    sh "docker push $IMAGE_NAME:latest"
+                    sh "docker push $IMAGE_NAME:$buildNumber"
+                }
+            }
+        }
+    }
+}
