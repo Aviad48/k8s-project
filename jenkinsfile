@@ -32,9 +32,9 @@ pipeline {
             steps {
                 script {
                     // Log in to Docker Hub using a token
-                    withCredentials([string(credentialsId: 'dckr_pat_RkBxziVkXtOaQUebre7-7ea4dkQ', variable: 'DOCKER_HUB_TOKEN')]) {
-                        sh "echo \$DOCKER_HUB_TOKEN | docker login -u \$DOCKER_HUB_USERNAME --password-stdin"
-                    }
+                    
+                        sh "echo $DOCKER_HUB_TOKEN | docker login -u $DOCKER_HUB_USERNAME --password-stdin"
+                    
 
                     // Get the current build number
                     def buildNumber = currentBuild.number.toString()
