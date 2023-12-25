@@ -6,7 +6,7 @@ pipeline {
         GIT_USERNAME = 'aviad48'
         IMAGE_NAME = 'aviad539/k8s'
         DOCKER_HUB_TOKEN = credentials('dckr_pat_RkBxziVkXtOaQUebre7-7ea4dkQ')
-        $DOCKER_HUB_USERNAME = 'aviad539'
+        DOCKER_HUB_USERNAME = 'aviad539'
     }
 
     stages {
