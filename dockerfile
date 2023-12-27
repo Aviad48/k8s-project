@@ -5,7 +5,7 @@ WORKDIR /app
 
 # Copy the Maven project files and download dependencies
 COPY pom.xml .
-COPY src ./src
+COPY spring-petclinic/src ./src
 
 # Build the artifact
 RUN mvn clean package
@@ -14,7 +14,7 @@ RUN mvn clean package
 FROM openjdk:17-slim
 
 WORKDIR /code
-
+EXPOSE 80
 # Copy the artifact from the builder stage to the final image
 COPY --from=builder /app/target/*.jar /code/
 
