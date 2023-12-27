@@ -4,7 +4,7 @@ FROM maven:3.8.4-openjdk-17-slim AS builder
 WORKDIR /app
 
 # Copy the Maven project files and download dependencies
-COPY pom.xml .
+COPY spring-petclinic/pom.xml .
 COPY spring-petclinic/src ./src
 
 # Build the artifact
