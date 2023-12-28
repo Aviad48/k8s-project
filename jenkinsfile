@@ -4,7 +4,7 @@ pipeline {
     environment {
         GITHUB_APP_CREDENTIALS_ID = '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'
         GIT_USERNAME = 'aviad48'
-        IMAGE_NAME = 'aviad539/k8s'
+        IMAGE_NAME = 'aviad539/petclinic'
         DOCKER_HUB_TOKEN = 'dckr_pat_RkBxziVkXtOaQUebre7-7ea4dkQ'
         DOCKER_HUB_USERNAME = 'aviad539'
     }
