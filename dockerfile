@@ -19,4 +19,4 @@ EXPOSE 80
 COPY --from=builder /app/target/*.jar /code/
 
 # Set the CMD to run the Java application
-CMD ["java", "-jar", "/code/maven-wrapper.jar.jar"]
+CMD ["java", "-jar", "/code/spring-petclinic.jar"]
